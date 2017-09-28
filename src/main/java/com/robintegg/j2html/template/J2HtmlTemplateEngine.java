@@ -1,5 +1,7 @@
 package com.robintegg.j2html.template;
 
+import static j2html.TagCreator.document;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -8,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.Map;
 
+import j2html.Config;
 import j2html.tags.ContainerTag;
 
 public class J2HtmlTemplateEngine {
@@ -19,12 +22,20 @@ public class J2HtmlTemplateEngine {
         this.templateConfiguration = templateConfiguration;
         this.templateResolver = new DefaultJ2HtmlTemplateResolver();
         this.templateResolver.configure(templateConfiguration);
+        initConfig(templateConfiguration);
+    }
+
+    private void initConfig(J2HtmlTemplateConfiguration templateConfiguration) {
+        Config.textEscaper = templateConfiguration.getTextEscaper();
+        Config.cssMinifier = templateConfiguration.getCssMinifier();
+        Config.jsMinifier = templateConfiguration.getJsMinifier();
+        Config.indenter = templateConfiguration.getIndenter();
+        Config.closeEmptyTags = templateConfiguration.isCloseEmptyTags();
     }
 
     public J2HtmlTemplateSource resolveTemplate(String templatePath) throws IOException {
         return templateResolver.resolveTemplate(templatePath);
     }
-
 
     public J2HtmlTemplate createTemplateByPath(String templatePath) throws ClassNotFoundException, IOException {
 
@@ -35,7 +46,7 @@ public class J2HtmlTemplateEngine {
             @Override
             public Writable make(Map<String, Object> binding) {
                 ContainerTag tag = source.getContainerTag();
-                return new StringWritable(tag.render());
+                return new StringWritable(document(tag));
             }
 
             @Override
