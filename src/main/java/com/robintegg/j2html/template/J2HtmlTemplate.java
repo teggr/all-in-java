@@ -4,8 +4,8 @@ import java.util.Map;
 
 public interface J2HtmlTemplate {
 
-    Writable make();
+	Writable make();
 
-    Writable make(Map<String, Object> binding);
+	Writable make(Map<String, Object> model);
 
 }
