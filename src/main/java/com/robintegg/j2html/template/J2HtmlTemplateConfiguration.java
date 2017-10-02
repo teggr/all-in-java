@@ -13,6 +13,16 @@ public class J2HtmlTemplateConfiguration {
     private Indenter indenter = Config.indenter;
     private boolean closeEmptyTags = Config.closeEmptyTags;
 
+    private String templatePackage = null;
+
+    public void setTemplatePackage(String templatePackage) {
+        this.templatePackage = templatePackage;
+    }
+
+    public String getTemplatePackage() {
+        return templatePackage;
+    }
+
     public void setTextEscaper(TextEscaper textEscaper) {
         this.textEscaper = textEscaper;
     }

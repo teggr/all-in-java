@@ -1,4 +1,4 @@
-package com.robintegg.demo.allinjavawebapp;
+package com.robintegg.demo.allinjavawebapp.web.templates;
 
 import static com.robintegg.j2html.bootstrap.BootstrapTagCreator.alert;
 import static com.robintegg.j2html.bootstrap.BootstrapTagCreator.col;
@@ -14,14 +14,13 @@ import java.util.Map;
 import com.robintegg.j2html.bootstrap.AlertComponent;
 import com.robintegg.j2html.bootstrap.ContainerComponent;
 import com.robintegg.j2html.bootstrap.RowComponent;
-import com.robintegg.j2html.template.J2HtmlTemplateSource;
 
 import j2html.tags.ContainerTag;
 
-public class TestTemplate implements J2HtmlTemplateSource {
+public class HomeTemplate extends DefaultPageTemplate {
 
     @Override
-    public ContainerTag make(Map<String, Object> model) {
+    protected ContainerTag configureBody(ContainerTag body, Map<String, Object> model) {
 
         RowComponent row1 = row().withColumn(col3().with(h1("Hello, world!"))).withColumn(col());
 
@@ -38,7 +37,8 @@ public class TestTemplate implements J2HtmlTemplateSource {
 
         ContainerComponent c2 = container().with(alert);
 
-        return MainView.render(model, c1, c2);
+        return body.with(c1).with(c2);
+
     }
 
 }

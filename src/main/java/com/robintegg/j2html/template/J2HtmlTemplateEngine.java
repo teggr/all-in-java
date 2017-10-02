@@ -20,7 +20,7 @@ public class J2HtmlTemplateEngine {
 
 	public J2HtmlTemplateEngine(J2HtmlTemplateConfiguration templateConfiguration) {
 		this.templateConfiguration = templateConfiguration;
-		this.templateResolver = new DefaultJ2HtmlTemplateResolver();
+        this.templateResolver = new DefaultJ2HtmlTemplateResolver();
 		this.templateResolver.configure(templateConfiguration);
 		initConfig(templateConfiguration);
 	}
@@ -59,20 +59,28 @@ public class J2HtmlTemplateEngine {
 
 	public class DefaultJ2HtmlTemplateResolver implements J2HtmlTemplateResolver {
 
-		private J2HtmlTemplateConfiguration configuration;
+        private String templateLocation = "";
 
 		@Override
 		public void configure(J2HtmlTemplateConfiguration configuration) {
-			this.configuration = configuration;
+
+            String templatePackage = configuration.getTemplatePackage();
+            if (templatePackage != null) {
+                if (!templatePackage.endsWith(".")) {
+                    templatePackage += ".";
+                }
+                templateLocation = templatePackage;
+            }
+
 		}
 
 		@Override
 		public J2HtmlTemplateSource resolveTemplate(String templatePath) throws IOException {
 
-			String replaceAll = templatePath.replaceAll("/", ".");
+            String templateClassName = templateLocation + templatePath.replaceAll("/", ".");
 
 			try {
-				Class<?> clazz = Class.forName(replaceAll);
+				Class<?> clazz = Class.forName(templateClassName);
 				Constructor<?> constructor = clazz.getConstructor();
 				return (J2HtmlTemplateSource) constructor.newInstance();
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException

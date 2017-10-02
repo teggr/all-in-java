@@ -12,7 +12,9 @@ public class J2HtmlConfiguration {
 
     @Bean
     public J2HtmlConfigurer j2HtmlConfigurer() {
-        return new J2HtmlConfigurer();
+        J2HtmlConfigurer j2HtmlConfigurer = new J2HtmlConfigurer();
+        j2HtmlConfigurer.setTemplatePackage("com.robintegg.demo.allinjavawebapp.web.templates");
+        return j2HtmlConfigurer;
     }
 
     @Bean
