@@ -4,17 +4,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.robintegg.demo.allinjavawebapp.web.templates.HomeTemplate;
+import com.robintegg.demo.allinjavawebapp.web.templates.RegisterHomeTemplate;
 
 @Controller
-public class HomeController {
+public class RegisterController {
 
-    @GetMapping("/")
+    @GetMapping("/register")
     public String getHome(Model model) {
 
-        model.addAttribute("title", "Apply for all the things");
+        model.addAttribute("title", "Home is here");
 
-        return HomeTemplate.class.getSimpleName();
+        return RegisterHomeTemplate.class.getSimpleName();
 
     }
 

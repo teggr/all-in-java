@@ -10,6 +10,14 @@ import j2html.tags.Tag;
 
 public class BootstrapTagCreator {
 
+    public static AnchorButton anchorButton() {
+        return new AnchorButton();
+    }
+
+    public static Jumbotron jumbotron() {
+        return new Jumbotron();
+    }
+
     public static MediaObjectComponent mediaObject() {
         return new MediaObjectComponent();
     }
